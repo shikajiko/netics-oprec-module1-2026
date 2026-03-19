@@ -7,3 +7,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/deployment
 - mikeroyal 
 https://github.com/mikeroyal/Self-Hosting-Guide
+
+steps:
+1. menulis api -> pakai node + express karena lebih familiar
+2. install node 
+3. konfigurasi dockerfile supaya install dependency dan run npm 
+command:
+docker build -t node-api .
+docker run -p 8000:3000 --name node-api node-api
+4. 

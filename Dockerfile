@@ -3,4 +3,4 @@ WORKDIR /src
 COPY package.json ./
 RUN npm install
 COPY . .
-CMD ["node", "api.js"]
+CMD ["node", "src/api.js"]
