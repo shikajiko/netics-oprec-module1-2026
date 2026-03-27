@@ -327,9 +327,10 @@ Log deployment github actions: <br>
   (https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/deployment)
  
 - Writing Ansible Playbook for Nginx <br>
-  (https://dev.to/dpuig/creating-an-ansible-playbook-to-install-and-configure-nginx-for-hosting-static-websites-3n6j
+  (https://dev.to/dpuig/creating-an-ansible-playbook-to-install-and-configure-nginx-for-hosting-static-websites-3n6j)
 
-- Ansible documentation
+- Ansible documentation <br>
+  (https://docs.ansible.com/projects/ansible/latest/getting_started/introduction.html)
 
 - Github actions documentation <br>
   (https://docs.github.com/en/actions/tutorials/create-an-example-workflow)
