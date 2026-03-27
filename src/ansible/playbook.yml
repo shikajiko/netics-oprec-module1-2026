@@ -4,6 +4,14 @@
   become: yes
 
   tasks:
+
+    - name: add github to known hosts
+      ansible.builtin.known_hosts:
+          name: github.com
+          key: "{{ lookup('pipe', 'ssh-keyscan github.com') }}"
+          path: /root/.ssh/known_hosts   # or ~{{ ansible_user }}/.ssh/known_hosts
+          state: present
+          
     - name: pull latest changes
       git:
         repo: git@github.com:shikajiko/netics-oprec-module1-2026
