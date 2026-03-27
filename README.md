@@ -1,16 +1,13 @@
 # NETICS Open Recruitment 2026  
 ## Modul 1 – CI/CD Deployment API
-
 ---
 | Riyan Fadli Amazzadin | 5025241068 | 
 |---|---| 
-
 
 ## URL API
 ```
 http://70.153.17.62/health
 ```
----
 
 ## Deskripsi Singkat
 Pada tugas kali ini, saya membuat API menggunakan `express`. Alasan saya memilih express adalah karena dokumentasi yang mudah diakses serta saya merasa lebih familiar menggunakan javascript dibanding python. Struktur repository ini adalah sebagai berikut:
@@ -66,7 +63,6 @@ app.listen(port, () => {
 ### Penjelasan Implementasi
 
 Pada bagian awal, kode meng-import package `express` untuk digunakan dalam class `app`. Express menyediakan fungsi-fungsi seperti `get`, dan `post` yang memungkinkan kita untuk melayani request dari client. Setelah itu, kode mendefinisikan endpoint `/health` yang berisi data-data yang relevan. Untuk mendapatkan waktu running server, setiap kali client memanggil endpoint `/health`, server mengurangi value `Date.now()` saat ini dengan `Date.now()` ketika server dimulai untuk mendapatkan durasi uptime server dalam satuan ms. Setelah itu, durasi tersebut akan diubah menjadi format yang lebih mudah dibaca melalui fungsi `formatUptime()`. Terakhir, setelah endpoint telah dibuat, server membuka koneksi pada port 3000 menggunakan fungsi `listen()`.
-
 <br>
 
 ## Docker
@@ -88,8 +84,8 @@ docker run -p 3000:3000 node-api
 ```
 
 yang akan dijalankan melalui ansible. 
-
 <br> 
+
 ## Nginx Reverse Proxy
 
 ### Konfigurasi
@@ -113,7 +109,6 @@ location / {
 Nginx sebagai reverse proxy akan meneruskan request client ke API. Untuk melakukan ini, nginx akan berjalan pada domain yang tertulis pada `server_name`. Karena saya tidak menggunakan domain, pada bagian `server_name` dapat diisi dengan public ip dari VPS yang digunakan. Nginx menggunakan port 80 yang merupakan port default dari http. 
 
 Untuk dapat meneruskan koneksi ke API, konfigurasi nginx perlu menunjukkan di mana alamat API yang sedang dijalankan. Alamat ini diletakkan pada `location` tepatnya pada `proxy_pass`. Karena pada file `api.js` saya menggunakan port 3000, proxy_pass ini diisi dengan `localhost:3000`. Parameter lain dalam `location` menangani lebih detail bagaimana koneksi tersebut diteruskan, salah satunya yaitu versi http yang digunakan yang dapat diatur pada bagian `proxy_http_version`. 
-
 <br>
 
 ## Ansible
@@ -219,8 +214,7 @@ Untuk lebih detailnya:
 - Instal dan Set up Nginx
   Untuk melakukan instalasi nginx, saya menggunakan module `apt`. Setelah itu, untuk meletakkan konfigurasi nginx yang sesuai, saya menghapus file konfigurasi default dengan `file` dan mengubah `state` menjadi `absent`. Setelah itu, ansible melakukan copy dari file nginx yang ada di komputer local ke VPS menggunakan module `copy`. Untuk mengaktifkan web, kita menggunakan `state: link` untuk mengaktifkan `symlink` ke file konfigurasi yang telah dicopy.
 
-
-<br><br>
+<br>
 
 ## CI/CD GitHub Actions
 
@@ -308,24 +302,16 @@ Alur CI/CD dari project yang dibuat adalah sebagai berikut:
 - Setelah proses selesai, github actions akan menghapus SSH key dan inventory file sementara untuk keamanan
 
   Informasi sensitif seperti VPS_HOST dan VPS_SSH_KEY disimpan dalam secrets sehingga menjamin keamanan server. 
-
-<br> <br>
+<br> 
 ## Screenshot
-Tambahkan screenshot:
-- API berjalan
-- Docker container
-- Nginx
-- GitHub Actions success
-
----
+Hasil ketika API dipanggil: <br>
+<img width="567" height="254" alt="image" src="https://github.com/user-attachments/assets/6e9c913b-9fb3-4c19-88d7-ab6facba1b90" />
+<br>
+Log deployment github actions: <br>
+<img width="1827" height="922" alt="image" src="https://github.com/user-attachments/assets/35eb3be6-a18b-40b7-a35f-3026c4beef95" />
+<br>
 
 ## References
-- ChatGPT - How Does an API work and how do you create it? <br>
-  (conversation link: https://chatgpt.com/share/69c5f27c-d460-8320-ac71-26e220a10297)
-
-- Claude - Suplementary explanation for the official ansible docs <br>
-  (conversation link: https://claude.ai/share/574561f5-f731-4a6b-8c68-8099842a60cc)
-
 - Express.js documentation <br>
   (https://expressjs.com/en/starter/hello-world.html)
 
@@ -343,12 +329,9 @@ Tambahkan screenshot:
 
 - Using github actions with ansible <br>
   (https://oneuptime.com/blog/post/2026-02-21-how-to-run-ansible-playbooks-in-github-actions/view)
+  
+- ChatGPT - How Does an API work and how do you create it? <br>
+  (conversation link: https://chatgpt.com/share/69c5f27c-d460-8320-ac71-26e220a10297)
 
-steps:
-1. menulis api -> pakai node + express karena lebih familiar
-2. install node 
-3. konfigurasi dockerfile supaya install dependency dan run npm 
-command:
-docker build -t node-api .
-docker run -p 8000:3000 --name node-api node-api
-4. pastikan konfigurasi vm azure mengizinkan akses ke port 8000
+- Claude - Suplementary explanation for the official ansible docs <br>
+  (conversation link: https://claude.ai/share/574561f5-f731-4a6b-8c68-8099842a60cc)
