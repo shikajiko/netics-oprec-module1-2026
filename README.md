@@ -1,6 +1,9 @@
 source: 
 - chatgpt - How Does an API work and how do you create it?
   link: https://chatgpt.com/share/69c5f27c-d460-8320-ac71-26e220a10297
+- claude - Suplementary explanation for the official ansible docs
+  link: https://claude.ai/share/574561f5-f731-4a6b-8c68-8099842a60cc
+
 - express.js documentation 
 https://expressjs.com/en/starter/hello-world.html
 - mdn
