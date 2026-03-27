@@ -15,7 +15,7 @@
     - name: pull latest changes
       git:
         repo: git@github.com:shikajiko/netics-oprec-module1-2026.git
-        dest: "{{ app_path }}"
+        dest: "{{ repo_path }}"
         version: main
         accept_hostkey: yes
         key_file: /home/riyanfadli/.ssh/id_ed25519
@@ -69,3 +69,4 @@
   vars:
     user: "riyanfadli"
     app_path: "/home/riyanfadli/netics-oprec-module1-2026/src/app"
+    repo_path: "/home/riyanfadli/netics-oprec-module1-2026"
