@@ -23,11 +23,22 @@ jobs:
       - name: install ansible
         run: pip install ansible==13.5.0
 
-      - name: set up ssh
+      - name: set up vps ssh
         run: |
           mkdir -p ~/.ssh
           printf '%s' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key.pem
           chmod 600 ~/.ssh/deploy_key.pem
+
+      - name: add ssh key to github worker
+        run: |
+          printf '%s' "${{ secrets.WORKER_SSH_KEY }}" > ~/.ssh/worker_ssh_key
+          chmod 600 ~/.ssh/worker_ssh_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          cat >> ~/.ssh/config <<EOF
+          Host github.com
+            IdentityFile ~/.ssh/worker_ssh_key
+            StrictHostKeyChecking no
+          EOF
 
       - name: add vps to known hosts
         run: |
@@ -51,3 +62,4 @@ jobs:
         run: |
           rm -f ~/.ssh/deploy_key.pem
           rm -f /tmp/inventory.ini
+          rm -f ~/.ssh/worker_ssh_key
