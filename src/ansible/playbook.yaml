@@ -1,0 +1,48 @@
+---
+- name: install and configure nginx then run docker
+  hosts: vps
+  become: yes
+
+  tasks:
+    - name: install nginx
+      apt: 
+        name: nginx
+        state: latest
+        update_cache: yes
+
+    - name: remove default nginx config
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: add nginx config
+      copy:
+        src: /home/riyan/oprec-netics-2026/netics-oprec-module1-2026/src/nginx/health-api
+        dest: /etc/nginx/sites-available
+        owner: "{{ user }}"
+        group: root
+        mode: '0644'
+
+    - name: enable web
+      file: 
+        src: /etc/nginx/sites-available/health-api
+        dest: /etc/nginx/sites-enabled/health-api
+        state: link
+
+    - name: check if nginx is running
+      systemd:
+        name: nginx
+        enabled: yes
+        state: started
+    
+    - name: build docker image
+      command: docker build -t node-api .
+      args:
+        chdir: "{{ app_path }}"
+
+    - name: run docker container
+      command: docker run -d -p 3000:3000 --name node-api node-api
+
+  vars:
+    user: "riyanfadli"
+    app_path: "/home/riyanfadli/netics-oprec-module1-2026/src/app"
