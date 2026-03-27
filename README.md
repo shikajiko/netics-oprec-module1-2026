@@ -1,5 +1,6 @@
 source: 
-- chatgpt
+- chatgpt - How Does an API work and how do you create it?
+  link: https://chatgpt.com/share/69c5f27c-d460-8320-ac71-26e220a10297
 - express.js documentation 
 https://expressjs.com/en/starter/hello-world.html
 - mdn
