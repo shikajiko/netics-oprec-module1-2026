@@ -307,8 +307,10 @@ Alur CI/CD dari project yang dibuat adalah sebagai berikut:
 - Setelah proses selesai, github actions akan menghapus SSH key dan inventory file sementara untuk keamanan
 
   Informasi sensitif seperti VPS_HOST dan VPS_SSH_KEY disimpan dalam secrets sehingga menjamin keamanan server. 
-<br> 
+<br>
+
 ## Screenshot
+
 Hasil ketika API dipanggil: <br>
 <img width="567" height="254" alt="image" src="https://github.com/user-attachments/assets/6e9c913b-9fb3-4c19-88d7-ab6facba1b90" />
 <br>
