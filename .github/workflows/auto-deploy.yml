@@ -1,0 +1,53 @@
+name: deploy api to vps
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/app/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: install ansible
+        run: pip install ansible==13.5.0
+
+      - name: set up ssh
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key.pem
+          chmod 600 ~/.ssh/deploy_key.pem
+
+      - name: add vps to known hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: write ansible inventory
+        run: |
+          cat <<EOF > /tmp/inventory.ini
+          [vps]
+          ${{ secrets.VPS_HOST }} ansible_user=${{ secrets.VPS_USER }} ansible_ssh_private_key_file=~/.ssh/deploy_key.pem
+          EOF
+
+      - name: run ansible playbook
+        run: |
+          ansible-playbook -i /tmp/inventory.ini ansible/playbook.yml
+        env:
+          ANSIBLE_FORCE_COLOR: "true"
+
+      - name: cleanup
+        if: always()
+        run: |
+          rm -f ~/.ssh/deploy_key.pem
+          rm -f /tmp/inventory.ini
