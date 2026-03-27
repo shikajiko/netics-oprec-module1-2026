@@ -217,9 +217,8 @@ Untuk lebih detailnya:
   Ansible memiliki module `git` yang dapat digunakan untuk menjalankan fungsi yang terkait dengan git. Di sini, perlu untuk menambahkan repository dan key yang relevan agar dapat melakukan pull pada repository yang bersifat private. <br>
 - Build and Run Docker <br>
   Untuk melakukan build image docker, saya menggunakan module `command` untuk menjalankan perintah `docker build`. Sedangkan pada bagian run, saya menggunakan module `community.docker`.  Alternatif lain adalah menggunakan `command` untuk menjalankan perintah `docker run`. Akan tetapi, ini melawan fungsi idempotent yang ditawarkan ansible, karena menjalankan docker run dua kali akan gagal jika container dengan nama yang sama sudah ada. community.docker memungkinkan ansible untuk tetap bersifat idempotent dengan mendeteksi state container yang ada dan hanya melakukan perubahan jika diperlukan. <br>
-- Instal dan Set up Nginx
+- Instal dan Set up Nginx <br>
   Untuk melakukan instalasi nginx, saya menggunakan module `apt`. Setelah itu, untuk meletakkan konfigurasi nginx yang sesuai, saya menghapus file konfigurasi default dengan `file` dan mengubah `state` menjadi `absent`. Setelah itu, ansible melakukan copy dari file nginx yang ada di komputer local ke VPS menggunakan module `copy`. Untuk mengaktifkan web, kita menggunakan `state: link` untuk mengaktifkan `symlink` ke file konfigurasi yang telah dicopy.
-
 <br>
 
 ## CI/CD GitHub Actions
