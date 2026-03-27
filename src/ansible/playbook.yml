@@ -1,15 +1,29 @@
 ---
-- name: install and configure nginx then run docker
+- name: deploy newest version of api
   hosts: vps
   become: yes
 
   tasks:
+    - name: pull latest changes
+      git:
+        repo: git@github.com:shikajiko/netics-oprec-module1-2026
+        dest: "{{ app_path }}"
+        version: main
 
     - name: build docker image
       command: docker build -t node-api .
       args:
         chdir: "{{ app_path }}"
-        
+
+    - name: run docker container
+      community.docker.docker_container:
+        name: node-api
+        image: node-api
+        state: started
+        restart_policy: always
+        ports:
+        - "3000:3000"
+    
     - name: install nginx
       apt: 
         name: nginx
