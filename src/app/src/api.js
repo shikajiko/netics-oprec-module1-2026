@@ -3,6 +3,13 @@ const app = express()
 const port = 3000
 const start = Date.now()
 
+function formatUptime(ms) {
+    const totalSecond = Math.floor(ms / 1000);
+    const hour = Math.floor(totalSecond / 3600);
+    const minute = Math.floor((totalSecond % 3600) / 60);
+    const second = totalSecond % 60;
+    return `${hour}h ${minute}m ${second}s`;
+}
 
 app.get('/health', (req, res) => {
     const uptime = Date.now() - start;
@@ -12,7 +19,7 @@ app.get('/health', (req, res) => {
         nrp: "5025241068",
         status: "UP",
         timestamp: new Date().toISOString(),
-        uptime: uptime
+        uptime: formatUptime(uptime)
     })
 })
 

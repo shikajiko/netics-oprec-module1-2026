@@ -32,6 +32,7 @@
         image: node-api
         state: started
         restart_policy: always
+        recreate: yes
         ports:
         - "3000:3000"
     
@@ -48,7 +49,7 @@
 
     - name: add nginx config
       copy:
-        src: src/nginx/health-api
+        src: "{{ playbook_dir }}../../nginx/health-api"
         dest: /etc/nginx/sites-available/health-api
         owner: root       
         group: root
