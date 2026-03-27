@@ -48,8 +48,8 @@
 
     - name: add nginx config
       copy:
-        src: /home/riyan/oprec-netics-2026/netics-oprec-module1-2026/src/nginx/health-api
-        dest: /etc/nginx/sites-available
+        src: src/nginx/health-api
+        dest: /etc/nginx/sites-available/health-api
         owner: root       
         group: root
         mode: '0644'
