@@ -19,4 +19,4 @@ steps:
 command:
 docker build -t node-api .
 docker run -p 8000:3000 --name node-api node-api
-4. 
+4. pastikan konfigurasi vm azure mengizinkan akses ke port 8000
