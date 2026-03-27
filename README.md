@@ -33,7 +33,6 @@ netics-oprec-module1-2026/
 ├── README.md
 └── .gitignore
 ```
-<br>
 
 ## API
 ```javascript
