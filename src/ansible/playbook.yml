@@ -14,9 +14,12 @@
 
     - name: pull latest changes
       git:
-        repo: https://github.com/shikajiko/netics-oprec-module1-2026.git
+        repo: git@github.com:shikajiko/netics-oprec-module1-2026.git
         dest: "{{ app_path }}"
         version: main
+        accept_hostkey: yes
+        key_file: /home/riyanfadli/.ssh/id_ed25519
+      become_user: riyanfadli  
 
     - name: build docker image
       command: docker build -t node-api .
