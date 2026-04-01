@@ -20,7 +20,6 @@ app.get('/health', (req, res) => {
         status: "UP",
         timestamp: new Date().toISOString(),
         uptime: formatUptime(uptime),
-        newres: "hello world"
     })
 })
 
