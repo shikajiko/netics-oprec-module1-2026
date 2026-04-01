@@ -19,7 +19,8 @@ app.get('/health', (req, res) => {
         nrp: "5025241068",
         status: "UP",
         timestamp: new Date().toISOString(),
-        uptime: formatUptime(uptime)
+        uptime: formatUptime(uptime),
+        newres: "hello world"
     })
 })
 
